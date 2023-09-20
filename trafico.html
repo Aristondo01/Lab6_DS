@@ -111,8 +111,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="laboratorio-6" class="level1">
-<h1>Laboratorio 6</h1>
+<section id="laboratorio-6---tráfico" class="level1">
+<h1>Laboratorio 6 - Tráfico</h1>
 <section id="sebastian-aristondo" class="level4">
 <h4 class="anchored" data-anchor-id="sebastian-aristondo">20880 Sebastian Aristondo</h4>
 </section>
@@ -121,7 +121,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="carga-de-datos" class="level2">
 <h2 class="anchored" data-anchor-id="carga-de-datos">2. Carga de datos</h2>
-<div class="cell" data-execution_count="45">
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -156,13 +156,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 [nltk_data]   Package wordnet is already up-to-date!
 [nltk_data] Downloading package punkt to
 [nltk_data]     C:\Users\Daniel\AppData\Roaming\nltk_data...
-[nltk_data]   Package punkt is already up-to-date!</code></pre>
+[nltk_data]   Package punkt is already up-to-date!
+c:\Users\Daniel\Main\UVG\Semestre VIII\Data science\Lab6_DS\myenv\lib\site-packages\tqdm\auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="46">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'traficogt.csv'</span>, sep<span class="op">=</span><span class="st">','</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="2">
 
 <div>
 
@@ -324,13 +326,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="limpieza-y-preprocesamiento-de-datos" class="level2">
 <h2 class="anchored" data-anchor-id="limpieza-y-preprocesamiento-de-datos">3. Limpieza y preprocesamiento de datos</h2>
 <p>El dataset tiene los datos crudos, por lo que debemos de limpiarlos y preprocesarlos para poder trabajar con ellos. Para esto, se utilizo la libreria pandas para poder leer el archivo csv y poder trabajar con el. Luego utilizaremos varias funciones de nltk para poder limpiar los datos y dejarlos listos para poder trabajar con ellos.</p>
-<div class="cell" data-execution_count="47">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_urls(rawContent):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    url_pattern <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&amp;+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> re.sub(url_pattern, <span class="st">''</span>, rawContent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Se realizaron tres acciones iniciales para limpiar y preprocesar datos. Primero se eliminó cualquier URL de los datos usando una expresión regular. También se mantuvieron solamente los caracteres que estuvieran de la a a la z, mayúsculas o minúsculas. Esto quiere decir que se quitó cualquier caracter como “#” o “@” y signos de puntuación. Por otra parte, se pasaron todas las palabras a minúsculas.</p>
-<div class="cell" data-execution_count="48">
+<div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_tildes(rawContent):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    rawContent <span class="op">=</span> rawContent.replace(<span class="st">'á'</span>, <span class="st">'a'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    rawContent <span class="op">=</span> rawContent.replace(<span class="st">'é'</span>, <span class="st">'e'</span>)</span>
@@ -339,16 +341,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    rawContent <span class="op">=</span> rawContent.replace(<span class="st">'ú'</span>, <span class="st">'u'</span>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rawContent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="49">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent'</span>] <span class="op">=</span> data[<span class="st">'rawContent'</span>].<span class="bu">apply</span>(remove_urls)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent'</span>] <span class="op">=</span> data[<span class="st">'rawContent'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.lower())</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent'</span>] <span class="op">=</span> data[<span class="st">'rawContent'</span>].<span class="bu">apply</span>(remove_tildes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="50">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent'</span>] <span class="op">=</span> data[<span class="st">'rawContent'</span>].<span class="bu">str</span>.replace(<span class="st">'[^a-zA-Z0-9]'</span>, <span class="st">' '</span>, regex<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Se removieron URLS y se quitaron caracteres especiales. También se pasaron todos los tweets a minúsculas y se removieron las tildes, para poder tener una forma estandarizada de los símbolos de los tweets en el dataset.</p>
-<div class="cell" data-execution_count="51">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> remove_stop_words(sentence):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">'spanish'</span>))  </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> sentence.split()</span>
@@ -359,9 +361,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent_clean'</span>] <span class="op">=</span> data[<span class="st">'rawContent'</span>].<span class="bu">apply</span>(remove_stop_words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Se eliminaron las stop words en español que pudiera tener el dataset.</p>
-<div class="cell" data-execution_count="52">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent_clean'</span>].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="52">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>0    ahora amilcar montejo director comunicacion em...
 1    conductora nego movilizar vehiculo multada cal...
 2    camion arena volteado viaducto pulte hacia hac...
@@ -370,7 +372,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Name: rawContent_clean, dtype: object</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="53">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lemmatize_words(words):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    lemmatizer <span class="op">=</span> WordNetLemmatizer()</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    lemmatized_words <span class="op">=</span> [lemmatizer.lemmatize(word) <span class="cf">for</span> word <span class="kw">in</span> words]</span>
@@ -380,9 +382,9 @@ Name: rawContent_clean, dtype: object</code></pre>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent_lemmatized_text'</span>] <span class="op">=</span> data[<span class="st">'rawContent_lemmatized'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">' '</span>.join(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Con el objetivo de analizar de una manera más sencilla los tweets los lematizaremos para poder obtener palabras clave como zona y lluvia.</p>
-<div class="cell" data-execution_count="54">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent_lemmatized'</span>].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="54">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0    [ahora, amilcar, montejo, director, comunicaci...
 1    [conductora, nego, movilizar, vehiculo, multad...
 2    [camion, arena, volteado, viaducto, pulte, hac...
@@ -391,9 +393,9 @@ Name: rawContent_clean, dtype: object</code></pre>
 Name: rawContent_lemmatized, dtype: object</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="55">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'rawContent_lemmatized_text'</span>].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="55">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0    ahora amilcar montejo director comunicacion em...
 1    conductora nego movilizar vehiculo multada cal...
 2    camion arena volteado viaducto pulte hacia hac...
@@ -402,10 +404,10 @@ Name: rawContent_lemmatized, dtype: object</code></pre>
 Name: rawContent_lemmatized_text, dtype: object</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="56">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.drop(<span class="st">"number"</span>, axis<span class="op">=</span><span class="dv">1</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="57">
+<div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> delete_non_spanish_tweets(texto):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> detect(texto) <span class="op">==</span> <span class="st">'es'</span></span>
@@ -413,21 +415,21 @@ Name: rawContent_lemmatized_text, dtype: object</code></pre>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Si no se puede detectar el idioma, se asume que no es español</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="58">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[data[<span class="st">'rawContent'</span>].<span class="bu">apply</span>(delete_non_spanish_tweets)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="análisis-exploratorio" class="level2">
 <h2 class="anchored" data-anchor-id="análisis-exploratorio">4. Análisis exploratorio</h2>
-<div class="cell" data-execution_count="59">
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="59">
-<pre><code>(11254, 31)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>(11247, 31)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="60">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="60">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>Index(['id', 'id_str', 'url', 'date', 'user', 'lang', 'rawContent',
        'replyCount', 'retweetCount', 'likeCount', 'quoteCount',
        'conversationId', 'hashtags', 'cashtags', 'mentionedUsers', 'links',
@@ -438,18 +440,18 @@ Name: rawContent_lemmatized_text, dtype: object</code></pre>
       dtype='object')</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="61">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>nas_coordenadas <span class="op">=</span> data[<span class="st">'coordinates'</span>].isna().<span class="bu">sum</span>()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Porcentaje de tweets sin coordenadas: '</span>, nas_coordenadas<span class="op">/</span>data.shape[<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cantidad de tweets con coordenadas: "</span>, data.shape[<span class="dv">0</span>] <span class="op">-</span> nas_coordenadas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Porcentaje de tweets sin coordenadas:  99.98222854096322
+<pre><code>Porcentaje de tweets sin coordenadas:  99.98221748021695
 Cantidad de tweets con coordenadas:  2</code></pre>
 </div>
 </div>
 <p>Como se puede observar, casi todos los tweets no tienen coordenadas, por lo tanto, no es posible realizar un análisis de tweets por ubicación para determinar que áreas tienen más tráfico.</p>
-<div class="cell" data-execution_count="62">
+<div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>coincidencias <span class="op">=</span> []</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Utilizar expresiones regulares para encontrar coincidencias de "zona" seguida de un número</span></span>
@@ -460,7 +462,7 @@ Cantidad de tweets con coordenadas:  2</code></pre>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    matches <span class="op">=</span> re.findall(pattern, texto)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    coincidencias.extend(matches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="63">
+<div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contar la frecuencia de cada número</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>conteo_coincidencias <span class="op">=</span> Counter(coincidencias)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -483,21 +485,21 @@ Cantidad de tweets con coordenadas:  2</code></pre>
 </div>
 </div>
 <p>Se puede observar que de los tweets relacionados al tráfico, la mayor cantidad vienen de zona 1, zona 10, zona 11 y zona 18.</p>
-<div class="cell" data-execution_count="64">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>usuarios <span class="op">=</span> data[<span class="st">'user'</span>].unique()</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Cantidad de usuarios unicos en el dataset: '</span>, <span class="bu">len</span>(usuarios))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Cantidad de usuarios unicos en el dataset:  4308</code></pre>
+<pre><code>Cantidad de usuarios unicos en el dataset:  4309</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="65">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extraer_valor(diccionario):</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    diccionario <span class="op">=</span> <span class="bu">eval</span>(diccionario)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> diccionario[<span class="st">"username"</span>]</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"username"</span>]<span class="op">=</span>data[<span class="st">"user"</span>].<span class="bu">apply</span>(extraer_valor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="66">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tweets_mas_rt <span class="op">=</span> data.groupby(<span class="st">'username'</span>)[<span class="st">'retweetCount'</span>].<span class="bu">sum</span>()</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>tr_count_df <span class="op">=</span> tweets_mas_rt.reset_index()</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>tr_count_df <span class="op">=</span> tr_count_df.rename(columns<span class="op">=</span>{<span class="st">'retweetCount'</span>: <span class="st">'count'</span>})</span>
@@ -515,7 +517,7 @@ Cantidad de tweets con coordenadas:  2</code></pre>
 <p><img src="trafico_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="67">
+<div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Como podemos ver el usuario </span><span class="sc">{</span>tr_count_df<span class="sc">.</span>iloc[<span class="dv">0</span>][<span class="st">'username'</span>]<span class="sc">}</span><span class="ss"> pareciera ser un usuario muy activo en Twitter en cuanto a tweets </span><span class="ch">\n</span><span class="ss">relacionados al tráfico. Mucha gente comparte la información que el público. Este hallazgo es interesante ya que asumimos </span><span class="ch">\n</span><span class="ss">que el mayor referente sobre este rubro sería prensa libre, Amílcar Montejo o algún otro medio de comunicación."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Como podemos ver el usuario dirkjanjanssen pareciera ser un usuario muy activo en Twitter en cuanto a tweets 
@@ -523,7 +525,7 @@ relacionados al tráfico. Mucha gente comparte la información que el público. 
 que el mayor referente sobre este rubro sería prensa libre, Amílcar Montejo o algún otro medio de comunicación.</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="68">
+<div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>tweets_mas_likes <span class="op">=</span> data.groupby(<span class="st">'username'</span>)[<span class="st">'likeCount'</span>].<span class="bu">sum</span>()</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>tr_count_df_likes <span class="op">=</span> tweets_mas_likes.reset_index()</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>tr_count_df_likes <span class="op">=</span> tr_count_df_likes.rename(columns<span class="op">=</span>{<span class="st">'likeCount'</span>: <span class="st">'count'</span>})</span>
@@ -531,17 +533,17 @@ que el mayor referente sobre este rubro sería prensa libre, Amílcar Montejo o 
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>tr_count_df_likes <span class="op">=</span> tr_count_df_likes.head(<span class="dv">10</span>)</span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))  <span class="co"># Tamaño del gráfico</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>plt.bar(tr_count_df[<span class="st">'username'</span>], tr_count_df_likes[<span class="st">'count'</span>])</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>plt.bar(tr_count_df_likes[<span class="st">'username'</span>], tr_count_df_likes[<span class="st">'count'</span>])</span>
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Usuario'</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Conteo de Retweets'</span>)</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Conteo de Retweets por Usuario'</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Conteo de likes'</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Conteo de likes por Usuario'</span>)</span>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)  <span class="co"># Rotar las etiquetas del eje x para una mejor visualización</span></span>
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="trafico_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="69">
+<div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>frecuencia_usuarios <span class="op">=</span> data[<span class="st">'username'</span>].value_counts()</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>usuarios_ordenados <span class="op">=</span> frecuencia_usuarios.sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
@@ -561,7 +563,7 @@ que el mayor referente sobre este rubro sería prensa libre, Amílcar Montejo o 
 <p><img src="trafico_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="70">
+<div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar el modelo pre-entrenado de BERT para análisis de sentimiento</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>model_name <span class="op">=</span> <span class="st">'nlptown/bert-base-multilingual-uncased-sentiment'</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> BertForSequenceClassification.from_pretrained(model_name)</span>
@@ -590,7 +592,7 @@ que el mayor referente sobre este rubro sería prensa libre, Amílcar Montejo o 
 <span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sentiment_label</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="71">
+<div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verificar_sentimiento(dataframe, columna):</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> valor <span class="kw">in</span> dataframe[columna]:</span>
@@ -601,7 +603,7 @@ que el mayor referente sobre este rubro sería prensa libre, Amílcar Montejo o 
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Los tweets del usuario "</span>, valor, <span class="st">" son mayormente "</span>, valor_mas_comun)</span>
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="72">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Los sentimientos de los tweets de los usuarios que tienen más retweets son:"</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>verificar_sentimiento(tr_count_df, <span class="st">"username"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -618,15 +620,13 @@ Los tweets del usuario  Libro_negro_  son mayormente  Muy negativo
 Los tweets del usuario  shitpene  son mayormente  Muy negativo</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="73">
+<div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Los sentimientos de los tweets de los usuarios que tienen más likes son:"</span>)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>verificar_sentimiento(tr_count_df_likes, <span class="st">"username"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Los sentimientos de los tweets de los usuarios que tienen más likes son:
-Los tweets del usuario  shitpene  son mayormente  Muy negativo</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Los tweets del usuario  BArevalodeLeon  son mayormente  Muy negativo
+Los tweets del usuario  shitpene  son mayormente  Muy negativo
+Los tweets del usuario  BArevalodeLeon  son mayormente  Muy negativo
 Los tweets del usuario  UDLP_Oficial  son mayormente  Muy negativo
 Los tweets del usuario  carlomarcogt  son mayormente  Muy negativo
 Los tweets del usuario  dirkjanjanssen  son mayormente  Neutral
@@ -638,124 +638,124 @@ Los tweets del usuario  TSEGuatemala  son mayormente  Positivo</code></pre>
 </div>
 </div>
 <p>Al realizar un análisis de sentimiento, se puede observar que la mayoría de los influencers encontrados, es decir, aquellos que tienen muchos retweets y likes, tienen un contenido muy negativo.</p>
-<div class="cell" data-execution_count="74">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_wordcloud(text):</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    wordcloud <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">800</span>, background_color<span class="op">=</span><span class="st">'white'</span>).generate(text)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    plt.imshow(wordcloud, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_wordcloud(text):</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    wordcloud <span class="op">=</span> WordCloud(width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">800</span>, background_color<span class="op">=</span><span class="st">'white'</span>).generate(text)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    plt.imshow(wordcloud, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="75">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verificar_sentimiento_tweet(tweets):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    sentiments <span class="op">=</span> []</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> valor <span class="kw">in</span> tweets:</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> analyze_sentiment(valor)</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>        sentiments.append(result)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener la frecuencia de cada sentimiento</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    frecuencia_sentimientos <span class="op">=</span> Counter(sentiments)</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extrae las etiquetas de sentimientos y las frecuencias</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    etiquetas <span class="op">=</span> frecuencia_sentimientos.keys()</span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    frecuencias <span class="op">=</span> frecuencia_sentimientos.values()</span>
-<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Crea el gráfico de barras</span></span>
-<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    plt.bar(etiquetas, frecuencias)</span>
-<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añade etiquetas y título</span></span>
-<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Sentimientos'</span>)</span>
-<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Frecuencia'</span>)</span>
-<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Frecuencia de Sentimientos'</span>)</span>
-<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Muestra el gráfico</span></span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verificar_sentimiento_tweet(tweets):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    sentiments <span class="op">=</span> []</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> valor <span class="kw">in</span> tweets:</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> analyze_sentiment(valor)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>        sentiments.append(result)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener la frecuencia de cada sentimiento</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    frecuencia_sentimientos <span class="op">=</span> Counter(sentiments)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extrae las etiquetas de sentimientos y las frecuencias</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    etiquetas <span class="op">=</span> frecuencia_sentimientos.keys()</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    frecuencias <span class="op">=</span> frecuencia_sentimientos.values()</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Crea el gráfico de barras</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    plt.bar(etiquetas, frecuencias)</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añade etiquetas y título</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Sentimientos'</span>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Frecuencia'</span>)</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Frecuencia de Sentimientos'</span>)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Muestra el gráfico</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="76">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_palabras_repetidas(tweets):</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener todas las palabras</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    all_words <span class="op">=</span> []</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> tweet <span class="kw">in</span> tweets:</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> tweet.split()</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>        all_words.extend(words)</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener las palabras más repetidas</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>    frecuencia_palabras <span class="op">=</span> Counter(all_words)</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    generate_wordcloud(<span class="st">' '</span>.join(all_words))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_palabras_repetidas(tweets):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener todas las palabras</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    all_words <span class="op">=</span> []</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> tweet <span class="kw">in</span> tweets:</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> tweet.split()</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        all_words.extend(words)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener las palabras más repetidas</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    frecuencia_palabras <span class="op">=</span> Counter(all_words)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    generate_wordcloud(<span class="st">' '</span>.join(all_words))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>palabras <span class="op">=</span> [<span class="st">'calzada la paz'</span>, <span class="st">'zona 5'</span>, <span class="st">'hundimiento'</span>, <span class="st">'caverna'</span>, <span class="st">'boulevard lourdes'</span>, <span class="st">'boulevard austriaco'</span>, <span class="st">'socavon'</span>]</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>patron <span class="op">=</span> <span class="st">'|'</span>.join(palabras)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>resultados <span class="op">=</span> data[data[<span class="st">'rawContent_lemmatized_text'</span>].<span class="bu">str</span>.contains(patron, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'rawContent_lemmatized_text'</span>]</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>resultados.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="77">
-<pre><code>(142,)</code></pre>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>palabras <span class="op">=</span> [<span class="st">'calzada la paz'</span>, <span class="st">'zona 5'</span>, <span class="st">'hundimiento'</span>, <span class="st">'caverna'</span>, <span class="st">'boulevard lourdes'</span>, <span class="st">'boulevard austriaco'</span>, <span class="st">'socavon'</span>]</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>patron <span class="op">=</span> <span class="st">'|'</span>.join(palabras)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>resultados <span class="op">=</span> data[data[<span class="st">'rawContent_lemmatized_text'</span>].<span class="bu">str</span>.contains(patron, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'rawContent_lemmatized_text'</span>]</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>resultados.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>(143,)</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="78">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>verificar_sentimiento_tweet(resultados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>verificar_sentimiento_tweet(resultados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="trafico_files/figure-html/cell-35-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="79">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>get_palabras_repetidas(resultados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>get_palabras_repetidas(resultados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="trafico_files/figure-html/cell-36-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="94">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>palabras_socavon <span class="op">=</span> [<span class="st">'socavon'</span>, <span class="st">'calzada la paz'</span>]</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>patron_socavon <span class="op">=</span> <span class="st">'|'</span>.join(palabras)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>resultados_socavon <span class="op">=</span> data[data[<span class="st">'rawContent_lemmatized_text'</span>].<span class="bu">str</span>.contains(patron_socavon, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'rawContent_lemmatized_text'</span>]</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>palabras_uvg <span class="op">=</span> [<span class="st">'uvg'</span>, <span class="st">'universidad del valle'</span>, <span class="st">'url'</span>, <span class="st">'universidad rafael landivar'</span>, <span class="st">'boulevard austriaco'</span>]</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>patron_uvg <span class="op">=</span> <span class="st">'|'</span>.join(palabras_uvg)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>resultados_uvg <span class="op">=</span> data[data[<span class="st">'rawContent_lemmatized_text'</span>].<span class="bu">str</span>.contains(patron_uvg, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'rawContent_lemmatized_text'</span>]</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>resultados_socavon <span class="op">=</span> <span class="bu">set</span>(resultados_socavon)</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>resultados_uvg <span class="op">=</span> <span class="bu">set</span>(resultados_uvg)</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>interseccion <span class="op">=</span> resultados_socavon.intersection(resultados_uvg)</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>lista <span class="op">=</span> <span class="bu">list</span>(interseccion)</span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La cantidad de tweets que involucran a la UVG y alrededores y al socavón es de: "</span>, <span class="bu">len</span>(lista))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>palabras_socavon <span class="op">=</span> [<span class="st">'socavon'</span>, <span class="st">'calzada la paz'</span>]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>patron_socavon <span class="op">=</span> <span class="st">'|'</span>.join(palabras)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>resultados_socavon <span class="op">=</span> data[data[<span class="st">'rawContent_lemmatized_text'</span>].<span class="bu">str</span>.contains(patron_socavon, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'rawContent_lemmatized_text'</span>]</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>palabras_uvg <span class="op">=</span> [<span class="st">'uvg'</span>, <span class="st">'universidad del valle'</span>, <span class="st">'url'</span>, <span class="st">'universidad rafael landivar'</span>, <span class="st">'boulevard austriaco'</span>]</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>patron_uvg <span class="op">=</span> <span class="st">'|'</span>.join(palabras_uvg)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>resultados_uvg <span class="op">=</span> data[data[<span class="st">'rawContent_lemmatized_text'</span>].<span class="bu">str</span>.contains(patron_uvg, case<span class="op">=</span><span class="va">False</span>, na<span class="op">=</span><span class="va">False</span>)][<span class="st">'rawContent_lemmatized_text'</span>]</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>resultados_socavon <span class="op">=</span> <span class="bu">set</span>(resultados_socavon)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>resultados_uvg <span class="op">=</span> <span class="bu">set</span>(resultados_uvg)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>interseccion <span class="op">=</span> resultados_socavon.intersection(resultados_uvg)</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>lista <span class="op">=</span> <span class="bu">list</span>(interseccion)</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"La cantidad de tweets que involucran a la UVG y alrededores y al socavón es de: "</span>, <span class="bu">len</span>(lista))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>La cantidad de tweets que involucran a la UVG y alrededores y al socavón es de:  3</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>palabras_lluvia <span class="op">=</span> [<span class="st">'lluvia'</span>, <span class="st">'lluvioso'</span>, <span class="st">'derrumbe'</span>, <span class="st">'derrumbes'</span>, <span class="st">'rio'</span>, <span class="st">'rios'</span>, <span class="st">'desbordado'</span>, <span class="st">'desbordamiento'</span>]</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>patron_lluvia <span class="op">=</span> <span class="st">'|'</span>.join(palabras)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>df_lluvia <span class="op">=</span> data[data[<span class="st">'rawContent'</span>].<span class="bu">str</span>.contains(patron_lluvia, case<span class="op">=</span><span class="va">False</span>)]</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>res_lluvia <span class="op">=</span> df_lluvia[<span class="st">'rawContent_lemmatized_text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>palabras_lluvia <span class="op">=</span> [<span class="st">'lluvia'</span>, <span class="st">'lluvioso'</span>, <span class="st">'derrumbe'</span>, <span class="st">'derrumbes'</span>, <span class="st">'rio'</span>, <span class="st">'rios'</span>, <span class="st">'desbordado'</span>, <span class="st">'desbordamiento'</span>]</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>patron_lluvia <span class="op">=</span> <span class="st">'|'</span>.join(palabras)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>df_lluvia <span class="op">=</span> data[data[<span class="st">'rawContent'</span>].<span class="bu">str</span>.contains(patron_lluvia, case<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>res_lluvia <span class="op">=</span> df_lluvia[<span class="st">'rawContent_lemmatized_text'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(data[<span class="st">'date'</span>])</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>fechas_lluvia <span class="op">=</span> data[<span class="st">'date'</span>].dt.date</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>frecuencia_lluvia <span class="op">=</span> fechas_lluvia.value_counts().sort_index()</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>fecha_inicio <span class="op">=</span> pd.to_datetime(<span class="st">'2023-01-01'</span>).date()</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>frecuencia_lluvia_filtrada <span class="op">=</span> frecuencia_lluvia[fecha_inicio:]</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear el gráfico de serie de tiempo</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>frecuencia_lluvia_filtrada.plot(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Fecha'</span>)</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Valor'</span>)</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Serie de Tiempo'</span>)</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(data[<span class="st">'date'</span>])</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>fechas_lluvia <span class="op">=</span> data[<span class="st">'date'</span>].dt.date</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>frecuencia_lluvia <span class="op">=</span> fechas_lluvia.value_counts().sort_index()</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>fecha_inicio <span class="op">=</span> pd.to_datetime(<span class="st">'2023-01-01'</span>).date()</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>frecuencia_lluvia_filtrada <span class="op">=</span> frecuencia_lluvia[fecha_inicio:]</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear el gráfico de serie de tiempo</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>frecuencia_lluvia_filtrada.plot(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Fecha'</span>)</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Valor'</span>)</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Serie de Tiempo'</span>)</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="trafico_files/figure-html/cell-39-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>verificar_sentimiento_tweet(res_lluvia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>verificar_sentimiento_tweet(res_lluvia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="trafico_files/figure-html/cell-40-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>get_palabras_repetidas(res_lluvia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>get_palabras_repetidas(res_lluvia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="trafico_files/figure-html/cell-41-output-1.png" class="img-fluid"></p>
 </div>
